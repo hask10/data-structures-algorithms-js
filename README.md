@@ -44,13 +44,24 @@ The goal of this repository is to:
 ## 📁 Project Structure
 
 ```
-dsa-javascript/
+DSA/
 │
-├── arrays/            // where it all started
-├── hashTables/        // things got interesting here
+├── 01_arrays/
+│   ├── note.md
+│   ├── commonItems.js
+│   ├── mergeSorted.js
+│   ├── stringReverse.js
+│   ├── twoSum.js
+│   └── moreProblems.md
+│
+├── 02_hashTables/
+│   ├── note.md
+│   └── hashTableImplementation.js
 │
 └── README.md
 ```
+
+Each module now includes a `note.md` file to keep topic-specific notes, summaries, and follow-up learning points in one place.
 
 ---
 
