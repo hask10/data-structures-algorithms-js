@@ -1,10 +1,10 @@
 # Arrays
 
-## Overview
+## Summary
 
-This module contains array-based practice problems and notes from working through Data Structures and Algorithms in JavaScript.
+Array practice focused on iteration, indexing, and time/space tradeoffs.
 
-## Contents
+## Files
 
 - `commonItems.js`: checks whether two arrays share a common item
 - `mergeSorted.js`: merges two sorted arrays
@@ -14,6 +14,5 @@ This module contains array-based practice problems and notes from working throug
 
 ## Notes
 
-- Focus area: iteration, indexing, and time/space tradeoffs
-- This folder may contain both first-pass and optimized solutions
-- Additional explanations or takeaways can be added here as the module grows
+- Includes both first-pass and more optimized solutions
+- Main focus: loops, indexing, lookup patterns, and basic optimization

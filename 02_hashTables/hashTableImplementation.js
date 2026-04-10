@@ -38,7 +38,24 @@ class HashTable {
     }
     return undefined;
   }
+
+  // to get all the keys in the hash table, we loop through the data array and for each bucket (array) that exists, we loop through the bucket to find the key-value pairs and push the keys into a new array called keysArray, which we return at the end.
+  keys() {
+    const keysArray = [];
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i]) {
+        // if the bucket exists, we loop through the bucket to find the key-value pairs and push the keys into the keysArray
+        for (let j = 0; j < this.data[i].length; j++) {
+          keysArray.push(this.data[i][j][0]);
+        }
+      }
+    }
+    return keysArray;
+  }
 }
+
+//getting all the keys in the hash table is O(n) because in the worst case, we have to loop through all the buckets and all the key-value pairs in those buckets to get all the keys.
+//so while hash table operations like set and get are O(1) on average, getting all the keys is O(n) because we have to loop through the entire data array and all the buckets to get all the keys.
 
 const myHashTable = new HashTable(50);
 myHashTable.set('grapes', 10000)
