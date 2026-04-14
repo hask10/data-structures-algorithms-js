@@ -58,6 +58,10 @@ DSA/
 │   ├── note.md
 │   └── hashTableImplementation.js
 │
+├── 03_linkedLists/
+│   ├── note.md
+│   └── singlyLinkedListImplementation.js
+│
 └── README.md
 ```
 
