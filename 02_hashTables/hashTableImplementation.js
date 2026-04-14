@@ -62,3 +62,5 @@ myHashTable.set('grapes', 10000)
 myHashTable.get('grapes')
 myHashTable.set('apples', 9)
 myHashTable.get('apples')
+
+// In python we use a dictionary to implement a hash table, which provides built-in methods for setting and getting key-value pairs, as well as getting all the keys in the dictionary. The time complexity for these operations is O(1) on average for setting and getting key-value pairs, and O(n) for getting all the keys in the dictionary.
