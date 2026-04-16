@@ -60,7 +60,9 @@ DSA/
 │
 ├── 03_linkedLists/
 │   ├── note.md
-│   └── singlyLinkedListImplementation.js
+│   ├── singlyLinkedListImplementation.js
+│   ├── doublyLinkedListImplementation.js
+│   └── reverse-linked-list-finally-clicked.md
 │
 └── README.md
 ```

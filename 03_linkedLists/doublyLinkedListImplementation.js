@@ -13,7 +13,7 @@ class NewNode {
         this.prev = null; // for doubly linked list, we also have a prev pointer that points to the previous node in the linked list. The first node in the linked list has a prev pointer of null.
     }
 }
-class LinkedList {
+class DoublyLinkedList {
     constructor(value) {
         // create the first node with the given value and next pointer of null
         const newNode = new NewNode(value);
@@ -30,6 +30,7 @@ class LinkedList {
     append(value) {
         // 1. create new node
         const newNode = new NewNode(value);
+        newNode.prev = this.tail; // for doubly linked list, we also need to connect the new node's prev pointer to the current tail before we update the tail to be the new node
         // 2. connect current tail to new node
         this.tail.next = newNode;
         // 3. update tail
@@ -39,11 +40,12 @@ class LinkedList {
     }
 
     // to add a new node to the beginning of the linked list, we need to create a new node with the given value, connect the new node's next pointer to the current head, update the head to be the new node, and increase the length of the linked list by 1.
-    prepend(value) {
+    Prepend(value) {
         // 1. create new node
         const newNode = new NewNode(value);
         //2. connect new node to current head
         newNode.next = this.head;
+        this.head.prev = newNode; // for doubly linked list, we also need to connect the current head's prev pointer to the new node before we update the head to be the new node
         // 3. update head
         this.head = newNode;
         // 4. increase length
@@ -58,6 +60,18 @@ class LinkedList {
             array.push(currentNode.value);
             currentNode = currentNode.next;
         }
+        return array;
+    }
+
+    printListReverse() {
+        const array = [];
+        let currentNode = this.tail;
+
+        while (currentNode !== null) {
+            array.push(currentNode.value);
+            currentNode = currentNode.prev;
+        }
+
         return array;
     }
 
@@ -97,13 +111,17 @@ class LinkedList {
         const newNode = new NewNode(value);
         // find leader (node before target position -- index - 1)
         let leader = this.traverseToIndex(index - 1);
+        const follower = leader.next; // we also need to store the reference to the node that comes after the leader (the follower) before we overwrite the leader's next pointer with the new node, so that we can connect the new node to the follower later.
 
-        // connect new node to the node that comes after the leader
-        let holdingPointer = leader.next; // we need to store the reference to the node that comes after the leader before we overwrite it with the new node
-        newNode.next = holdingPointer;
+        // connect new node to leader and follower
+        newNode.prev = leader;
+        newNode.next = follower;
 
         // connect leader to new node
         leader.next = newNode;
+        // connect follower to new node
+        follower.prev = newNode;
+
         // increase length
         this.length++;
     }
@@ -114,69 +132,28 @@ class LinkedList {
         // if index is 0 -> remove head
         if (index === 0) {
             this.head = this.head.next;
+            this.head.prev = null; // for doubly linked list, we also need to set the new head's prev pointer to null after we update the head to be the next node
             this.length--;
             return this.printList();
         }
-        // find the node before the one to be removed
-        let leader = this.traverseToIndex(index - 1);
-        // store the reference to the node to be removed
-        let unwantedNode = leader.next;
+
+        let unwantedNode = this.traverseToIndex(index);
+        const follower = unwantedNode.next; // we also need to store the reference to the node that comes after the unwanted node (the follower) before we overwrite the unwanted node's next pointer with the node after the one to be removed, so that we can connect the unwanted node to the follower later.
+        let leader = unwantedNode.prev;
         // connect the leader to the node after the one to be removed
-        leader.next = unwantedNode.next;
-        // when node being removed is the tail we update the tail otherwise tail would be null
-        if (unwantedNode === this.tail) {
-            this.tail = leader;
-        }
+        leader.next = follower;
+        // set the prev pointer of the node after the one to be removed to the leader
+        follower.prev = leader;
         // decrease length
         this.length--;
         return this.printList();
     }
-
-    reverse() {
-        // my approach in this code: prev → curr → next (explained in the md file)
-        // Instructor's approach : first → second → temp
-        let prev = null;
-        let current = this.head;
-        if(!current.next) {
-            // return this.head;
-            return this.printList(); // if there is only one node in the linked list, we can just return the linked list as it is because reversing a single node doesn't change anything. We can return the head or we can return the linked list as an array using printList, both are fine.
-        }
-        this.tail = this.head; // after reversing, the head will become the tail, so we need to update the tail to be the current head before we start reversing.
-        while (current !== null) {
-            let next = current.next; // store the next node
-            current.next = prev; // reverse the next pointer
-            // move pointers one step forward
-            prev = current; // move prev to current
-            current = next; // move current to next
-        }
-        this.head = prev; // after the loop, prev will be the new head of the reversed linked list, so we need to update the head to be prev.
-        return this.printList();
-    }
-
-    reverse2() {
-        // Instructor's approach : first → second → temp
-        let first = this.head;
-        this.tail = this.head;
-        let second = first.next;
-        while (second) {
-            let temp = second.next;
-            second.next = first;
-            //move first and second one step forward
-            first = second;
-            second = temp;
-        }
-        this.head.next = null;
-        this.head = first;
-        return this.printList();
-
-    }
-
 }
 
 const myLinkedList = new LinkedList(10);
 myLinkedList.append(5);
 myLinkedList.append(16);
-myLinkedList.prepend(1);
+myLinkedList.Prepend(1);
 console.log(myLinkedList.printList()); // Output: [1, 10, 5, 16]
 myLinkedList.insert(2, 99);
 console.log(myLinkedList.printList()); // Output: [1, 10, 99, 5, 16]
