@@ -48,6 +48,10 @@ The goal of this repository is to:
 ```text
 DSA/
 |
+├── 00_JS/
+│   ├── note.md
+│   └── howJsWorks.md
+|
 ├── 01_arrays/
 │   ├── note.md
 │   ├── commonItems.js
@@ -79,7 +83,6 @@ DSA/
 │   ├── queueImplementation.js
 │   └── queue-linked-list-intuition.md
 |
-├── howJsWorks.md
 └── README.md
 ```
 
